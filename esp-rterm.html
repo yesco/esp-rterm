@@ -1,0 +1,40 @@
+<html>
+<header>
+<title>ESP8266 Remote Terminal</title>
+</header>
+
+<script>
+var sc;
+
+function w(h) {
+   sc = sc || document.getElementById('screen');
+   sc.insertAdjacentHTML('BeforeEnd', h);
+}
+
+function update(url) {
+  var s = document.createElement('script');
+  s.src = url;
+  document.head.appendChild(s);
+  s.onload = function() { s.remove(); n++; getit(); delay = 0; };
+  s.onerror = function() { s.remove(); console.log("FAIL: " + url); delay = delay > 3000 ? 0 : (delay*2); getit(); };
+}
+
+var n = 0;
+var delay;
+function getit() {
+  delay = delay || 100;
+  setTimeout(function() { update('http://localhost:8080/update?' + n); }, delay);
+}
+
+getit();
+</script>
+
+<body>
+
+<h1>ESP8266 Remote Terminal</h1>
+
+<div id='screen' style='word-wrap: break-word;'>
+</div>
+
+</body>
+</html>
