@@ -13,6 +13,7 @@ At the moment, against all judgement it uses jsonp as mechanism to do requests.
 TODO: Change to use websocket!
 
 TODO: implement vt100/xansi (use jballards js implementation?)
+TODO: graphical "terminal" (svg?/html/img)
 
 ## demo
 

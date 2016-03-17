@@ -3,12 +3,27 @@
 <title>ESP8266 Remote Terminal</title>
 </header>
 
-<script>
-var sc;
+<style>
+div.rterm {
+  word-wrap: break-word;
+  border: 10px solid black;
+  border-radious: 10px;
+  background: black;
+  color: #8AFF4F;
+  font-weight: bold;
+}
+</style>
 
-function w(h) {
-   sc = sc || document.getElementById('screen');
-   sc.insertAdjacentHTML('BeforeEnd', h);
+<script>
+var sc = {};
+
+function w(h, term, replace) {
+   var t = sc[term] = sc[term] || document.getElementById(term);
+   if (replace) {
+     t.innerHTML = replace;
+   } else {
+     t.insertAdjacentHTML('BeforeEnd', h);
+   }
 }
 
 function update(url) {
@@ -33,7 +48,10 @@ getit();
 
 <h1>ESP8266 Remote Terminal</h1>
 
-<div id='screen' style='word-wrap: break-word;'>
+<div id='main' class='rterm'>
+</div>
+
+<div id='error' class='rterm'>
 </div>
 
 </body>

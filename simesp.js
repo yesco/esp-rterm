@@ -22,7 +22,7 @@ var out = function(s) {
   console.log(s);
 }
 
-var pending = '';
+var pending = '', action = '';
 
 var server = http.createServer
   (function (req, res) {
@@ -31,9 +31,19 @@ var server = http.createServer
     out("========= got http request: " + u);
 
     res.writeHead(200, {'Content-Type': 'text/javascript'});
-    pending = pending.replace(/'/g, '\\');
-    res.write("w('" + pending + "');\n");
+
+    // action
+    if (action) {
+      res.write(action);
+      action = '';
+    }
+ 
+    // encode for safety
+    pending = JSON.stringify(pending);
+
+    res.write('w(' + pending + ', "main");\n');
     pending = '';
+
     // TODO: keep around as it may have not been received, keep count of u request number!
     res.end("");
   }).listen(port);
@@ -55,8 +65,15 @@ stdin.setEncoding( 'utf8' );
 
 // on any data into stdin
 stdin.on( 'data', function( key ){
-  if ( key === '\u0003' ) { // ctrl-c
+  if (key == '\u0003') { // ctrl-c
     process.exit();
   }
+  if (key == '\u000c') {
+      action = 'w("", "main", "<span></span>");\n'; // cls
+      pending = '';
+      return;
+  }
+  if (key == '\m' || key == '\r') key = '<br>\n';
+ 
   pending += key;
 });
