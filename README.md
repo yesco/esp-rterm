@@ -21,3 +21,19 @@ Go to file:///home/.../esp-rterm/esp-rterm.html in the browser
 
 linux> node simesp.js
 <now type and stuff will come up on the terminal>
+
+## similar projects/resources
+
+(based on)
+- https://github.com/chjj/term.js
+- https://github.com/chjj/tty.js/
+
+(oterm, run on your server to access it remotely)
+- https://github.com/davidmoreno/onion
+
+(xterm, js emulator)
+- https://github.com/Gottox/terminal.js
+
+(socket.io/websocket enabled vt100 terminal)
+- https://github.com/Gottox/node-webterm/blob/acb81a8340a34b0864ade932ff51155bc5e720a1/index.html
+
